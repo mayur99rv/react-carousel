@@ -74,22 +74,5 @@ class Carousel extends React.Component {
   }
 }
 
-function Counter() {
-  const [count, setCount] = useState(1);
-  return (
-    <div>
-      <div className="display">
-        <h2> Counter Value: </h2>
-        <br />
-        <h3> {count} </h3>
-        <br />
-        <div>
-          <button onClick={() => setCount(count - 1)}>Decrement </button>
-          <button onClick={() => setCount(count + 1)}>Increment </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default App;
