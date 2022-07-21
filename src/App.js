@@ -1,23 +1,93 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+      <div className="head">
+        <h1> Carousel demo </h1>
+      </div>
+      {/* <Counter /> */}
+      <div className="carousel">
+        <Carousel />
+      </div>
+    </>
+  );
+}
+
+class Carousel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state.currentIndex = 0;
+  }
+  state = {
+    currentIndex: 0,
+    imgs: [
+      "./images/1.jpg",
+      "./images/2.jpg",
+      "./images/3.jpg",
+      "./images/4.jpg",
+      "./images/5.jpg",
+      "./images/6.jpg",
+      "./images/7.jpg",
+    ],
+  };
+  updateImage() {
+    this.setState({
+      currentIndex: (this.state.currentIndex + 1) % this.state.imgs.length,
+    });
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.updateImage();
+    }, 3000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+  render() {
+    return (
+      <div className="carousel-container">
+        <div className="carousel-slide">
+          <img src={this.state.imgs[this.state.currentIndex]} alt="imagea" />
+        </div>
+        <div className="collection">
+          {this.state.imgs.map((img, index) => {
+            return (
+              <div
+                className={
+                  index === this.state.currentIndex ? "slide active" : "slide"
+                }
+                key={index}
+                onClick={() => {
+                  this.setState({ currentIndex: index });
+                }}
+              >
+                <img src={img} alt="imagea" />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+}
+
+function Counter() {
+  const [count, setCount] = useState(1);
+  return (
+    <div>
+      <div className="display">
+        <h2> Counter Value: </h2>
+        <br />
+        <h3> {count} </h3>
+        <br />
+        <div>
+          <button onClick={() => setCount(count - 1)}>Decrement </button>
+          <button onClick={() => setCount(count + 1)}>Increment </button>
+        </div>
+      </div>
     </div>
   );
 }
